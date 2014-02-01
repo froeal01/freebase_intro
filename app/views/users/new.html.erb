@@ -1,0 +1,22 @@
+<% if flash[:error] %>
+<div class="container">
+<ul>
+<% flash[:error].each do |error| %><br>
+<li style="color:red"><%= error %> </li>
+<% end %>
+</ul>
+</div>
+<% end %>
+
+<h1> Sign in to experience the awesomeness </h1>
+
+<%= form_for @user do |f| %>
+	<%= f.label :email %>
+	<%= f.text_field :email %>
+	<%= f.label :password %>
+	<%= f.text_field :password %>
+	<%= f.label :password_confirmation %>
+	<%= f.text_field :password_confirmation %>
+	<%= f.submit %>
+<%end %>
+

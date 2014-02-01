@@ -1,0 +1,57 @@
+<% if flash[:message] %>
+	<div class="container">
+		<ul>
+		 <li style ="color:red"><%= flash[:message] %> </li>
+		</ul>
+	</div>
+<% end %>
+
+
+<% if @current_user !=nil %>
+ <%= "Welcome Back #{@current_user.email}" %>
+<% end %>
+
+<h1> Please enter your Search </h1>
+
+<%= form_tag("/", method: 'get') do %>
+	<%= label_tag("Search For") %>
+	<%= text_field_tag :query, params[:query] %>
+	<%= submit_tag("Search") %>
+<% end %>
+
+
+<div class "results">
+<% if @results != nil %>
+
+	<ul>
+	<% @results.each do |result| %>
+		<li><a href= "http://freebase.com<%= "#{result["mid"]}" %>"> <%= result["name"] %> </a> 
+		<% if result["notable"] %>
+		 Catagory<a href = "http://freebase.com<%= "#{result["notable"]["id"]}"%>"> <%= result["notable"]["name"] %></a> </li>
+		<% else %>
+		 </li>
+		<% end %>
+	<% end %>
+	</ul>
+<% end %>
+</div>
+
+
+<div class = "sign_up">
+	<% if @current_user == nil %>
+	 <%= link_to "Sign Up", new_user_path %>
+	<% end %>
+</div>
+
+<div class = "sign_in">
+	<% if @current_user == nil %>
+	 <%= link_to "Sign In", login_session_path %>
+	<% end %>
+</div>
+
+<div class = "log_out">
+	<% if @current_user != nil %>
+	 <%= link_to "log out", logout_sessions_path %>
+	<% end %>
+</div>
+
